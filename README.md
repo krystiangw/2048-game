@@ -1,6 +1,10 @@
-# 2048 Game
+## 2048 Game
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.1.
+
+## Demo
+
+[Demo](https://krystiangw.github.io/2048-game/dist/v7-2048/index.html)
 
 ## Development server
 
