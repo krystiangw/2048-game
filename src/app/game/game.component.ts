@@ -19,6 +19,7 @@ export class GameComponent {
 
   noRows: number = 6;
   noColumns: number = 6;
+  noObstacles: number = 1;
 
   gameStatus: GameStatus = GameStatus.InProgress;
 
@@ -38,7 +39,7 @@ export class GameComponent {
   }
 
   newGame() {
-    this.tiles = this.gameService.getNewGame(this.noRows, this.noColumns);
+    this.tiles = this.gameService.getNewGame(this.noRows, this.noColumns, this.noObstacles);
     this.gameStatus = this.gameService.getStatus(this.tiles);
   }
 

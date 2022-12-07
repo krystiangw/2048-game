@@ -21,4 +21,4 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 * [Game component](src/app/game/game.component.ts) is a smart component that keeps game state
 * [Board component](src/app/board/board.component.ts) is a dumb component that renders game board
 * [Game Service](src/app/services/game.service.ts) is a class that generate initial game state and provide game results based on the user moves.
-* Game grid size can be customized based on the user input. Game basic value ( default to 2 ) and win value ( default to 2048 ) can be configured through [Game Service](src/app/services/game.service.ts) constructor
+* Game grid size and number of obstacles can be customized based on the user input. Game basic value ( default to 2 ) and win value ( default to 2048 ) can be configured through [Game Service](src/app/services/game.service.ts) constructor

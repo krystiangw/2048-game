@@ -12,12 +12,16 @@ export class GameService {
   constructor(
     private readonly initialValue: number = 2,
     private readonly basicValue: number = 2,
-    private readonly valueToWin: number = 2048
+    private readonly valueToWin: number = 2048,
+    private readonly obstacleValue: number = -1,
   ) {}
 
-  getNewGame(noRows: number, noColumns: number) {
+  getNewGame(noRows: number, noColumns: number, noObstacles: number) {
     const empty = Array2dUtils.generateEmpty(noRows, noColumns);
-    return Array2dUtils.addRandom(empty, this.initialValue);
+    const array2dWithRandomValue = Array2dUtils.addRandom(empty, this.initialValue);
+
+    const array2dWithObstacle = Array(noObstacles).fill(null).reduce((acc) => Array2dUtils.addRandom(acc, this.obstacleValue), array2dWithRandomValue);
+    return array2dWithObstacle;
   }
 
   move(array2d: Array2d, direction: DirectionCode): Array2d {
@@ -32,7 +36,7 @@ export class GameService {
     // Rotate array2d so we the direction of teh merge is always to the left
     const array2dRotatedToLeftDirection: Array2d = Array2dUtils.rotateMultipleTimes(array2d, noRotations, true)
 
-    const array2dSummedToLeft: Array2d = Array2dUtils.sumToLeft(array2dRotatedToLeftDirection);
+    const array2dSummedToLeft: Array2d = Array2dUtils.sumToLeft(array2dRotatedToLeftDirection, this.obstacleValue);
 
     const maxLength: number = Math.max(...array2dRotatedToLeftDirection.map(row => row.length));
     const array2dWithFilledEmptyElements: Array2d = Array2dUtils.fillEmptyElements(array2dSummedToLeft, maxLength);

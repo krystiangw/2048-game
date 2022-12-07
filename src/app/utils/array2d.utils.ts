@@ -36,18 +36,22 @@ export const rotate = (array: Array2d, clockwise: boolean): Array2d => {
 
 interface SumAccumulator { value: number; isMerged: boolean };
 
-export const sumToLeft = (array2d: Array2d): Array2d => {
+export const sumToLeft = (array2d: Array2d, obstacleValue: number): Array2d => {
   return array2d.map(row => {
     return row
-      .reduce((acc: SumAccumulator[], value: number) => {
+      .reduce((acc: SumAccumulator[], value: number, index: number) => {
         const lastElement: SumAccumulator = acc[acc.length - 1];
-        if (value !== 0) {
+        if (value > 0) {
           if (lastElement && !lastElement.isMerged && value === lastElement?.value) {
             lastElement.value *= 2;
             lastElement.isMerged = true;
           } else {
             acc.push({ value: value, isMerged: false });
           }
+        } else if (value === obstacleValue) {
+          const noEmptyElements = index - acc.length;
+          acc.push(...Array(noEmptyElements).fill(0));
+          acc.push({ value: value, isMerged: false });
         }
         return acc;
     }, [])
