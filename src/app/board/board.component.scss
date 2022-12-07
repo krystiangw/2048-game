@@ -1,0 +1,58 @@
+$colors: (
+  2: #ffd380,
+  4: #bc5090,
+  8: #ff8531,
+  16: #ff6361,
+  32: #ffa600 ,
+  64: #8a508f,
+  128: #2c4875,
+  256: #c7522a,
+  512: #003f5c,
+  1024: #008585,
+  2048: #00202e
+);
+
+.board {
+  padding: 10px;
+  display: flex;
+  background-color: #f5f7fb;
+  margin-top: 80px;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  .row  {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    .tile {
+      background-color: #e7eeff;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+      box-shadow:  4px 4px 2px 1px rgb(0 0 255 / 20%);
+      border-radius: 6px;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+
+      @each $key, $color in $colors {
+        &-#{$key} {
+          background-color: $color;
+        }
+      }
+    }
+  }
+}

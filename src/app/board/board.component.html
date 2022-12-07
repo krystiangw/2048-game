@@ -1,0 +1,5 @@
+<div class="board">
+  <div class="row" *ngFor="let row of tiles">
+    <div class="tile tile-{{tile}}" *ngFor="let tile of row">{{tile || ''}}</div>
+  </div>
+</div>
