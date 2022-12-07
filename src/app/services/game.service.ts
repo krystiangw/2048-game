@@ -11,7 +11,7 @@ export enum GameStatus {
 export class GameService {
   constructor(
     private readonly initialValue: number = 2,
-    private readonly basicValue: number = 1,
+    private readonly basicValue: number = 2,
     private readonly valueToWin: number = 2048
   ) {}
 
