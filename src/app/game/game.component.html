@@ -1,1 +1,22 @@
-<app-board [tiles]="tiles"></app-board>
+<div class="game">
+  <div class="form">
+    <div class="field">
+      <label>Number of rows</label>
+      <input type="number" [(ngModel)]="noRows">
+    </div>
+
+    <div class="field">
+      <label>Number of columns</label>
+      <input type="number" [(ngModel)]="noColumns">
+    </div>
+    <button (click)="newGame()">New game</button>
+  </div>
+  <div class="content">
+    <app-board [tiles]="tiles"></app-board>
+  </div>
+
+  <div class="status">
+    <div class="label">Game Status:</div>
+    <div class="value">{{gameStatusText}}</div>
+  </div>
+</div>

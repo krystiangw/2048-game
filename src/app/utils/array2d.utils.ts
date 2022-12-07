@@ -1,15 +1,22 @@
 import { Array2d } from '../models/array2d';
 
 export const addRandom = (array2d: Array2d, randomValue: number) => {
-  const emptyElements = array2d
-    .map((row, x) => row.map((value, y) => ({ value, x, y })).filter(tile => tile.value === 0))
-    .reduce((acc, el) => [...acc, ...el], [])
-
+  const emptyElements = getEmptyElements(array2d);
+  if (emptyElements.length === 0) {
+    return array2d;
+  }
   const randomEmptyElementIndex = Math.max(Math.round(Math.random() * emptyElements.length) - 1, 0);
   const randomEmptyElement = emptyElements[randomEmptyElementIndex];
-  array2d[randomEmptyElement.x][randomEmptyElement.y] = randomValue;
-  return array2d;
+  const cloned = clone(array2d);
+  cloned[randomEmptyElement.x][randomEmptyElement.y] = randomValue;
+  return cloned;
 };
+
+export const getEmptyElements = (array2d: Array2d): { value: number, x: number, y: number }[] => {
+  return array2d
+    .map((row, x) => row.map((value, y) => ({ value, x, y })).filter(tile => tile.value === 0))
+    .reduce((acc, el) => [...acc, ...el], []);
+}
 
 export const rotateMultipleTimes = (array2d: Array2d, noRotations: number, clockwise: boolean): Array2d => {
   return  Array(Math.abs(noRotations)).fill(0).reduce(acc => rotate(acc, clockwise), array2d);
@@ -48,6 +55,18 @@ export const sumToLeft = (array2d: Array2d): Array2d => {
   });
 };
 
-export const fillEmptyElements = (array2d: Array2d, rowLength: number, fillValue: number = 0) => {
-  return array2d.map(row => Array(rowLength).fill(fillValue).map((val, index) => row[index] ?? 0));
+export const fillEmptyElements = (array2d: Array2d, noColumns: number, fillValue: number = 0) => {
+  return array2d.map(row => Array(noColumns).fill(fillValue).map((val, index) => row[index] ?? 0));
+};
+
+export const generateEmpty = (noRows: number, noColumns: number): Array2d => {
+  return Array(noRows).fill(0).map(() => Array(noColumns).fill(0));
+}
+
+export const clone = (array2d: Array2d): Array2d => {
+  return array2d.map(row => row.map(value => value));
+};
+
+export const toArray = (array2d: Array2d): number[] => {
+  return array2d.reduce((acc, el) => [...acc, ...el], []);
 };

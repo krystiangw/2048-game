@@ -1,0 +1,47 @@
+.game {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    max-width: 200px;
+    gap: 10px;
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #ff8531;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+
+  .status {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    .value {
+      font-weight: bold;
+    }
+  }
+
+  .content {
+    margin: auto;
+  }
+}

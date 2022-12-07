@@ -1,4 +1,5 @@
 $colors: (
+  1: #2c4875,
   2: #ffd380,
   4: #bc5090,
   8: #ff8531,
@@ -16,13 +17,14 @@ $colors: (
   padding: 10px;
   display: flex;
   background-color: #f5f7fb;
-  margin-top: 80px;
   flex-wrap: nowrap;
   flex-direction: column;
   align-content: center;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding: 16px;
+  border-radius: 10px;
 
   .row  {
     display: flex;
