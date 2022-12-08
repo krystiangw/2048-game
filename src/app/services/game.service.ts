@@ -16,32 +16,20 @@ export class GameService {
     private readonly obstacleValue: number = -1,
   ) {}
 
-  getNewGame(noRows: number, noColumns: number, noObstacles: number) {
+  getNewGame(noRows: number, noColumns: number, noObstacles: number): Array2d {
     const empty = Array2dUtils.generateEmpty(noRows, noColumns);
+    // add basic value at a random place
     const array2dWithRandomValue = Array2dUtils.addRandom(empty, this.initialValue);
-
+    // add obstacles at a random place
     const array2dWithObstacle = Array(noObstacles).fill(null).reduce((acc) => Array2dUtils.addRandom(acc, this.obstacleValue), array2dWithRandomValue);
     return array2dWithObstacle;
   }
 
   move(array2d: Array2d, direction: DirectionCode): Array2d {
     const array2dSummed: Array2d = this.sumToDirection(array2d, direction);
-    // add basic value at random place
+    // add basic value at a random place
     const array2dWithRandomValue: Array2d = Array2dUtils.addRandom(array2dSummed, this.basicValue);
     return array2dWithRandomValue;
-  }
-
-  sumToDirection(array2d: Array2d, direction: DirectionCode): Array2d {
-    const noRotations: number = direction - DirectionCode.ArrowLeft;
-    // Rotate array2d so we the direction of teh merge is always to the left
-    const array2dRotatedToLeftDirection: Array2d = Array2dUtils.rotateMultipleTimes(array2d, noRotations, true)
-
-    const array2dSummedToLeft: Array2d = Array2dUtils.sumToLeft(array2dRotatedToLeftDirection, this.obstacleValue);
-
-    const maxLength: number = Math.max(...array2dRotatedToLeftDirection.map(row => row.length));
-    const array2dWithFilledEmptyElements: Array2d = Array2dUtils.fillEmptyElements(array2dSummedToLeft, maxLength);
-    // Rotate it back
-    return Array2dUtils.rotateMultipleTimes(array2dWithFilledEmptyElements, noRotations, false);
   }
 
   getStatus(array2d: Array2d): GameStatus {
@@ -57,6 +45,19 @@ export class GameService {
     }
 
     return GameStatus.Lost;
+  }
+
+  private sumToDirection(array2d: Array2d, direction: DirectionCode): Array2d {
+    const noRotations: number = direction - DirectionCode.ArrowLeft;
+    // Rotate array2d so the merge direction is always to the left
+    const array2dRotatedToLeftDirection: Array2d = Array2dUtils.rotateMultipleTimes(array2d, noRotations, true)
+
+    const array2dSummedToLeft: Array2d = Array2dUtils.sumToLeft(array2dRotatedToLeftDirection, this.obstacleValue);
+
+    const maxLength: number = Math.max(...array2dRotatedToLeftDirection.map(row => row.length));
+    const array2dWithFilledEmptyElements: Array2d = Array2dUtils.fillEmptyElements(array2dSummedToLeft, maxLength);
+    // Rotate it back
+    return Array2dUtils.rotateMultipleTimes(array2dWithFilledEmptyElements, noRotations, false);
   }
 
   private hasEmptyElementsAfterMove(array2d: Array2d): boolean {
